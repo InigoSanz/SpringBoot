@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: demo
+
+nuestra:
+  propiedad:
+    string: valor
+    int: 1
