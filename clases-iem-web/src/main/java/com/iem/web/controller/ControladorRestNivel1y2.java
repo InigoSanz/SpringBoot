@@ -183,7 +183,7 @@ public class ControladorRestNivel1y2 {
 		Optional<Mensaje> mensajeFiltrado = chats.stream()
 				.filter(chat -> chat.getId().equals(chatId))
 				.flatMap(chat -> chat.getMensajes().stream())
-				.filter(mensaje -> mensaje.getId().equals(mensajeId))
+				.filter(mensaje -> mensaje.getId() == mensajeId)
 				.findFirst();
 		
 		if (mensajeFiltrado.isPresent()) {
@@ -202,7 +202,7 @@ public class ControladorRestNivel1y2 {
 			if (chats.get(indChat).getActivo().booleanValue() && chats.get(indChat).getId().equals(chatId)) {
 				
 				for (int indMen = 0; indChat < chats.get(indChat).getMensajes().size(); indMen++) {
-					if (chats.get(indChat).getMensajes().get(indMen).getId().equals(mensajeId)) {
+					if (chats.get(indChat).getMensajes().get(indMen).getId() == mensajeId) {
 						chats.get(indChat).getMensajes().remove(indMen);
 						break;
 					}
