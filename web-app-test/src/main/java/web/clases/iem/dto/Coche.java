@@ -3,27 +3,31 @@ package web.clases.iem.dto;
 import java.time.LocalDateTime;
 
 public class Coche {
-	
-	private String matricula;
+
 	private String id;
+	private String matricula;
 	private LocalDateTime fechaEntrada;
 	private LocalDateTime fechaSalida;
 	private boolean borrado;
-
-	public String getMatricula() {
-		return matricula;
+	
+	public Coche() {
+		
 	}
-
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
-
+	
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+        this.matricula = matricula;
 	}
 
 	public LocalDateTime getFechaEntrada() {
@@ -41,7 +45,7 @@ public class Coche {
 	public void setFechaSalida(LocalDateTime fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
-
+	
 	public boolean isBorrado() {
 		return borrado;
 	}

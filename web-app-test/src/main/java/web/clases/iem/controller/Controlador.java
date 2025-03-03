@@ -30,6 +30,14 @@ public class Controlador {
 	
 	private List<Coche> coches = new ArrayList<>();
 	
+	public List<Coche> getCoches() {
+		return coches;
+	}
+
+	public void setCoches(List<Coche> coches) {
+		this.coches = coches;
+	}
+
 	@GetMapping
 	public ResponseEntity<List<Coche>> obtenerVehiculos() {
 		
@@ -42,8 +50,8 @@ public class Controlador {
 		String idCoche = UUID.randomUUID().toString();	
 		
 		coche.setId(idCoche);
-		coches.add(coche);
 		coche.setFechaEntrada(LocalDateTime.now());
+		coches.add(coche);
 		
 		return ResponseEntity.created(crearUri(idCoche)).build();	
 	}
