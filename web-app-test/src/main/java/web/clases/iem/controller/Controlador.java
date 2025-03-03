@@ -32,6 +32,7 @@ public class Controlador {
 	
 	@GetMapping
 	public ResponseEntity<List<Coche>> obtenerVehiculos() {
+		
 		return ResponseEntity.ok(coches);
 	}
 	
