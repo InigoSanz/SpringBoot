@@ -1,5 +1,6 @@
 package com.iem.rest.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,8 +13,8 @@ public class Conductor {
 	private String apellidos;
 	private TipoDocumento tipoDocumento;
 	private String documento;
-	private List<Vehiculo> vehiculos;
-	private List<Viaje> viajes;
+	private List<Vehiculo> vehiculos = new ArrayList<>();
+	private List<Viaje> viajes = new ArrayList<>();
 	
 	// Constructores
 	public Conductor() {

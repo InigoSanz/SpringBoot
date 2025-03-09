@@ -1,6 +1,7 @@
 package com.iem.rest.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +14,8 @@ public class Vehiculo {
 	private String matricula;
 	private LocalDateTime fechaSiguienteItv;
 	private int kilometros;
-	private List<Conductor> conductores;
-	private List<Viaje> viajes;
+	private List<Conductor> conductores = new ArrayList<>(); // Inicializamos la lista para el error 500 que nos da el endpoint
+	private List<Viaje> viajes = new ArrayList<>();
 	
 	// Constructores
 	public Vehiculo() {

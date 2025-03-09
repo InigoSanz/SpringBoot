@@ -1,5 +1,6 @@
 package com.iem.rest.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,8 +10,8 @@ public class Viaje {
 	
 	// Atributos
 	private Long idViaje;
-	private List<Vehiculo> vehiculos;
-	private List<Conductor> conductores;
+	private List<Vehiculo> vehiculos  = new ArrayList<>();
+	private List<Conductor> conductores = new ArrayList<>();
 	
 	// Constructores
 	public Viaje() {
