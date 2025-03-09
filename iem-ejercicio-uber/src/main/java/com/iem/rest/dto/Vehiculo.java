@@ -17,6 +17,7 @@ public class Vehiculo {
 	private List<Conductor> conductores = new ArrayList<>(); // Inicializamos la lista para el error 500 que nos da el endpoint
 	private List<Viaje> viajes = new ArrayList<>();
 	private boolean estaActivo = true;
+	private boolean disponible = true; // Añadimos esta variable para indicar si puede realizar un viaje según la ITV
 	
 	// Constructores
 	public Vehiculo() {
@@ -84,5 +85,13 @@ public class Vehiculo {
 
 	public void setEstaActivo(boolean estaActivo) {
 		this.estaActivo = estaActivo;
+	}
+
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
 	}
 }

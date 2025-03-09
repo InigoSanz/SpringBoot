@@ -370,6 +370,12 @@ public class UberController {
 		return ResponseEntity.notFound().build();
 	}
 	
+	/*
+	 * Los Viajes no se podrán eliminar de ninguna forma.
+	 * 
+	 * Para esto simplemente no añadimos el endpoint para eliminar viajes, pero podríamos meter seguridad adicional.
+	 */
+	
 	/**
 	 * Método para generar URIs.
 	 * 
