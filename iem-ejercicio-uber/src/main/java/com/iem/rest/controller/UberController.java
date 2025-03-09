@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.iem.rest.dto.Conductor;
+import com.iem.rest.dto.TipoDocumento;
 import com.iem.rest.dto.Vehiculo;
 import com.iem.rest.dto.Viaje;
 
@@ -128,6 +129,59 @@ public class UberController {
 				} else {
 					return ResponseEntity.noContent().build();
 				}
+			}
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	/**
+	 * Dar de alta Conductores con: el nombre, los apellidos, el tipo de documento de identidad y el número del documento de identidad.
+	 * @param conductor
+	 * @return
+	 */
+	@PostMapping("/conductor")
+	public ResponseEntity<Void> darAltaConductor(@RequestBody Conductor conductor) { // Al poner request body, Spring necesita que le enviemos algun dato por json, si no falla
+		log.debug("Alta conductor");
+
+		conductor.setNombre("Iñigo");
+		conductor.setTipoDocumento(TipoDocumento.DNI);
+		conductor.setDocumento("73109122B");
+		
+		conductores.add(conductor);
+		
+		URI uri = crearUri(conductor.getDocumento());
+		
+		return ResponseEntity.created(uri).build();
+	}
+	
+	/**
+	 * Consultar Conductores y que nos devuelva: el nombre, apellidos, el tipo de documento de identidad, el número del documento de identidad, los taxis usados y los kilómetros en cada uno de ellos.
+	 * @return lista de conductores
+	 */
+	@GetMapping("/conductores")
+	public ResponseEntity<List<Conductor>> getConductores() {
+		log.debug("Obtener conductores");
+		
+		if (!conductores.isEmpty()) {
+			return ResponseEntity.ok(conductores);
+		}
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	/**
+	 * Obtiene la información de un conductor según su documento.
+	 * @param documento
+	 * @return conductor
+	 */
+	@GetMapping("/conductores/{documento}")
+	public ResponseEntity<Conductor> getConductor(@PathVariable("documento") String documento) {
+		log.debug("Obtener un conductor");
+		
+		for (Conductor conductor : conductores) {
+			if (conductor.getDocumento().equals(documento)) {
+				return ResponseEntity.ok(conductor);
 			}
 		}
 		
