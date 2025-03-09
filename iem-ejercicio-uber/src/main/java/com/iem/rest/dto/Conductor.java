@@ -15,6 +15,7 @@ public class Conductor {
 	private String documento;
 	private List<Vehiculo> vehiculos = new ArrayList<>();
 	private List<Viaje> viajes = new ArrayList<>();
+	private boolean estaActivo = true;
 	
 	// Constructores
 	public Conductor() {
@@ -68,5 +69,13 @@ public class Conductor {
 
 	public void setViajes(List<Viaje> viajes) {
 		this.viajes = viajes;
+	}
+
+	public boolean isEstaActivo() {
+		return estaActivo;
+	}
+
+	public void setEstaActivo(boolean estaActivo) {
+		this.estaActivo = estaActivo;
 	}
 }

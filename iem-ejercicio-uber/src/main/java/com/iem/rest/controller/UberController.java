@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -325,6 +326,44 @@ public class UberController {
 				} else {
 					return ResponseEntity.noContent().build();
 				}
+			}
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	/**
+	 * Eliminar cualquier Vehículo o Conductor pero con “Borrado Lógico” y no “Borrado Físico”, para mantener los datos aun en BBDD.
+	 * @param nBastidor
+	 * @return
+	 */
+	@DeleteMapping("/vehiculos/{nBastidor}")
+	public ResponseEntity<Void> deleteVehiculo(@PathVariable String nBastidor) {
+		log.debug("Eliminado lógico de un vehículo");
+		
+		for (Vehiculo vehiculo : vehiculos) {
+			if (vehiculo.getnBastidor().equals(nBastidor)) {
+				vehiculo.setEstaActivo(false);
+				return ResponseEntity.ok().build();
+			}
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	/**
+	 * Eliminar cualquier Vehículo o Conductor pero con “Borrado Lógico” y no “Borrado Físico”, para mantener los datos aun en BBDD.
+	 * @param documento
+	 * @return
+	 */
+	@DeleteMapping("/conductores/{documento}")
+	public ResponseEntity<Void> deleteConductor(@PathVariable String documento) {
+		log.debug("Eliminado lógico de un conductor");
+		
+		for (Conductor conductor : conductores) {
+			if (conductor.getDocumento().equals(documento)) {
+				conductor.setEstaActivo(false);
+				return ResponseEntity.ok().build();
 			}
 		}
 		

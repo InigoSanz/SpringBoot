@@ -16,6 +16,7 @@ public class Vehiculo {
 	private int kilometros;
 	private List<Conductor> conductores = new ArrayList<>(); // Inicializamos la lista para el error 500 que nos da el endpoint
 	private List<Viaje> viajes = new ArrayList<>();
+	private boolean estaActivo = true;
 	
 	// Constructores
 	public Vehiculo() {
@@ -75,5 +76,13 @@ public class Vehiculo {
 
 	public void setViajes(List<Viaje> viajes) {
 		this.viajes = viajes;
+	}
+
+	public boolean isEstaActivo() {
+		return estaActivo;
+	}
+
+	public void setEstaActivo(boolean estaActivo) {
+		this.estaActivo = estaActivo;
 	}
 }
