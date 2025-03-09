@@ -29,20 +29,21 @@ public class ComprobarItvService {
 	}
 	
 	/**
-	 * Tarea programada para comprobar las ITVs de los vehículos.
+	 * Un servicio programado (Scheduled), que se ejecute cada 24 horas, 
+	 * que revise cuando un Vehículo debe pasar la ITV en los próximos 7 días y lo marque para que no se pueda usar durante los Viajes.
 	 */
-	@Scheduled
+	@Scheduled(cron = "0 0 3 * * ?")	// Mirado en internet
 	public void comprobarItv() {
 		log.info("Comprobando estado de la ITV...");
 		
 		LocalDateTime ahora = LocalDateTime.now(); // De momento vamos a utilizar la fecha actual como referencia, pero habría que utilizar la fecha de la última ITV que ha pasado
-//		LocalDateTime revision = vehiculo.getFechaSiguienteItv(); // Fijamos la fecha a un año vista
+		LocalDateTime comprobar = ahora.plusDays(7); // Fijamos la fecha a 7 días vista
 		
 		for (Vehiculo vehiculo : vehiculos) {
 			LocalDateTime revision = vehiculo.getFechaSiguienteItv(); // Cogemos la fecha de la siguiente ITV de cada vehículo
-			if (revision.isBefore(ahora)) {
+			if (revision.isBefore(comprobar)) {
 				vehiculo.setDisponible(false);
-				log.info("El vehículo no esta disponible para el viaje"); // Lo suyo sería mostrar que vehiculo es el que no esta disponible y cual si
+				log.info("El vehículo {} no esta disponible para el viaje", vehiculo.getnBastidor()); // Lo suyo sería mostrar que vehiculo es el que no esta disponible y cual si
 			}
 		}
 	}
