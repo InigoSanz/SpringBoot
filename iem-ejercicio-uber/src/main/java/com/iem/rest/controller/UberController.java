@@ -288,6 +288,50 @@ public class UberController {
 	}
 	
 	/**
+	 * Consultar como subrecurso de los Viajes, los Vehículos y los Conductores.
+	 * @param idViaje
+	 * @return lista de vehículos de un viaje
+	 */
+	@GetMapping("/viajes/{idViaje}/vehiculos")
+	public ResponseEntity<List<Vehiculo>> getVehiculosViaje(@PathVariable("idViaje") String idViaje) {
+		log.debug("Obtener vehiculos de un viaje");
+		
+		for(Viaje viaje : viajes) {
+			if (viaje.getIdViaje().equals(idViaje)) {
+				if (!viaje.getIdVehiculo().isEmpty()) {
+					return ResponseEntity.ok(viaje.getVehiculos());
+				} else {
+					return ResponseEntity.noContent().build();
+				}
+			}
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	/**
+	 * Consultar como subrecurso de los Viajes, los Vehículos y los Conductores.
+	 * @param idViaje
+	 * @return lista de conductores de un viaje
+	 */
+	@GetMapping("/viajes/{idViaje}/conductores")
+	public ResponseEntity<List<Conductor>> getConductoresViaje(@PathVariable("idViaje") String idViaje) {
+		log.debug("Obtener conductores de un viaje");
+		
+		for(Viaje viaje : viajes) {
+			if (viaje.getIdViaje().equals(idViaje)) {
+				if (!viaje.getConductores().isEmpty()) {
+					return ResponseEntity.ok(viaje.getConductores());
+				} else {
+					return ResponseEntity.noContent().build();
+				}
+			}
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	/**
 	 * Método para generar URIs.
 	 * 
 	 * @param id
