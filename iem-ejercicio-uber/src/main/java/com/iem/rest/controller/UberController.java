@@ -189,6 +189,105 @@ public class UberController {
 	}
 	
 	/**
+	 * Consultar como subrecurso de los Conductores, los Vehículos y los Viajes.
+	 * @param documento
+	 * @return vehiculos de un conductor
+	 */
+	@GetMapping("/conductores/{documento}/vehiculos")
+	public ResponseEntity<List<Vehiculo>> getVehiculosConductor(@PathVariable("documento") String documento) {
+		log.debug("Obtener vehiculos de un conductor");
+		
+		for(Conductor conductor : conductores) {
+			if (conductor.getDocumento().equals(documento)) {
+				if (!conductor.getVehiculos().isEmpty()) {
+					return ResponseEntity.ok(conductor.getVehiculos());
+				} else {
+					return ResponseEntity.noContent().build();
+				}
+			}
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	/**
+	 * Consultar como subrecurso de los Conductores, los Vehículos y los Viajes.
+	 * @param documento
+	 * @return viajes de un conductor
+	 */
+	@GetMapping("/conductores/{documento}/viajes")
+	public ResponseEntity<List<Viaje>> getViajesConductor(@PathVariable("documento") String documento) {
+		log.debug("Obtener viajes de un conductor");
+		
+		for(Conductor conductor : conductores) {
+			if (conductor.getDocumento().equals(documento)) {
+				if (!conductor.getViajes().isEmpty()) {
+					return ResponseEntity.ok(conductor.getViajes());
+				} else {
+					return ResponseEntity.noContent().build();
+				}
+			}
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	/**
+	 * Dar de alta Viajes con: el id del Vehículo, el id del conductor, los kilómetros realizados y el tiempo tardado.
+	 * @param viaje
+	 * @return
+	 */
+	@PostMapping("/viaje")
+	public ResponseEntity<Void> darAltaViaje(@RequestBody Viaje viaje) { // Al poner request body, Spring necesita que le enviemos algún dato por json, si no falla
+		log.debug("Alta viaje");
+		
+		String identificadorViaje = UUID.randomUUID().toString();
+		
+		viaje.setIdViaje(identificadorViaje);
+		viaje.setTiempoViaje(ahora.plusMinutes(80));
+		viaje.setKmRecorridos(1000);
+		
+		viajes.add(viaje);
+		
+		URI uri = crearUri(identificadorViaje);
+		
+		return ResponseEntity.created(uri).build();
+	}
+	
+	/**
+	 * Consultar Viajes y que nos devuelva: los datos completos del Vehículo, los datos completos del Conductor, los kilómetros realizados y el tiempo tardado.
+	 * @return información de los viajes
+	 */
+	@GetMapping("/viajes")
+	public ResponseEntity<List<Viaje>> getViajes() {
+		log.debug("Obtener viajes");
+		
+		if (!viajes.isEmpty()) {
+			return ResponseEntity.ok(viajes);
+		}
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	/**
+	 * Obtener la información de un viaje según su identificador.
+	 * @param idViaje
+	 * @return viaje
+	 */
+	@GetMapping("/viajes/{idViaje}")
+	public ResponseEntity<Viaje> getViaje(@PathVariable("idViaje") String idViaje) {
+		log.debug("Obtener un viaje");
+		
+		for (Viaje viaje : viajes) {
+			if (viaje.getIdViaje().equals(idViaje)) {
+				return ResponseEntity.ok(viaje);
+			}
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	/**
 	 * Método para generar URIs.
 	 * 
 	 * @param id
