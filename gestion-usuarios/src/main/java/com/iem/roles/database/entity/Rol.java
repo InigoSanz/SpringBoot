@@ -19,8 +19,11 @@ public class Rol {
 	@Column(nullable = false)
 	private String nombre;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String descripcion;
+	
+	@Column(nullable = false)
+	private Long idUsuario;
 
 	// Getters y Setters
 	public Long getId() {
@@ -45,5 +48,13 @@ public class Rol {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 }
