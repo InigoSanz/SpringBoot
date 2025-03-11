@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: pruebas-mongo
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+#      username: admin
+#      password: admin
+      database: IEM_Pruebas
