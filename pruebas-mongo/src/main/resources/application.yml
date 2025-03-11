@@ -4,7 +4,12 @@ spring:
   data:
     mongodb:
       host: localhost
-      port: 27017
+      port: 27018
 #      username: admin
 #      password: admin
       database: IEM_Pruebas
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 8.0.0

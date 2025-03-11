@@ -7,13 +7,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("ARTICULOS")
 public class Articulo {
-	
+
 	@Id
 	private String id;
 	private String nombre;
 	private Dimensiones dimensiones;
 	private List<Detalle> detalles;
-
+	
+	@Override
+	public String toString() {
+		return "Articulo [id=" + id + ", nombre=" + nombre + ", dimensiones=" + dimensiones + ", detalles=" + detalles
+				+ "]";
+	}
+	
 	public String getId() {
 		return id;
 	}
