@@ -8,10 +8,10 @@
 		<version>3.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.iem.mongo</groupId>
-	<artifactId>pruebas-mongo</artifactId>
+	<groupId>com.iem.carritos</groupId>
+	<artifactId>carritos-compra</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pruebas-mongo</name>
+	<name>carritos-compra</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -37,12 +37,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.jeasy</groupId>
-			<artifactId>easy-random-core</artifactId>
-			<version>5.0.0</version>
 		</dependency>
 		
 		<dependency>
