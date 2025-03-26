@@ -37,29 +37,26 @@ public class KafkaService {
 	private Object crearMensajeRandom() {
 		Object message;
 		switch (random.nextInt(3)) {
-		case 1:
+		case 0:
 			NewMessageDto men = new NewMessageDto();
 			men.setMsg("New Message Dto");
 			men.setUser(getRandomUser());
 			message = men;
 			break;
-		case 2:
-			MessageDto men = new MessageDto();
-			men.setMsg("Mensaje DTO");
-			men.setUser(getRandomUser());
-			message = men;
+		case 1:
+			MessageDto men2 = new MessageDto();
+			men2.setMsg("Mensaje DTO");
+			men2.setUser(getRandomUser());
+			message = men2;
 			break;
-		case 3:
+		case 2:
 			message = "Simple String: " + getRandomUser();
 			break;
 		default:
-			break;
+			throw new UnsupportedOperationException();
 		}
 
-		MessageDto message = new MessageDto();
-		message.setMsg("Mensaje enviado");
-		message.setUser("Usuario");
-		return null;
+		return message;
 	}
 
 	private String getRandomUser() {

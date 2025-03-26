@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "spring.kafka.url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.kafka.url'"
+  },
+  {
+    "name": "custom.topic.sucursal",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.topic.sucursal'"
+  },
+  {
+    "name": "custom.topic.nuevo-coche",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.topic.nuevo-coche'"
+  },
+  {
+    "name": "spring,kafka.consumer.group-id",
+    "type": "java.lang.String",
+    "description": "A description for 'spring,kafka.consumer.group-id'"
+  }
+]}

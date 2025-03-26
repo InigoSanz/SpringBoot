@@ -14,8 +14,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
-import com.iem.kafka.dto.MessageDto;
-
 
 
 @EnableKafka
@@ -26,7 +24,7 @@ public class KafkaProducerConfiguration {
 	private String server;
 	
 	@Bean
-	ProducerFactory<String, MessageDto> messageProducerFactory() {
+	ProducerFactory<String, Object> messageProducerFactory() {
 		Map<String, Object> props = new HashMap<>();
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, server);
 		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -35,7 +33,7 @@ public class KafkaProducerConfiguration {
 	}
 	
 	@Bean
-	KafkaTemplate<String, MessageDto> messageKafkaTemplate() {
+	KafkaTemplate<String, Object> messageKafkaTemplate() {
 		return new KafkaTemplate<>(messageProducerFactory());
 	}
 }

@@ -7,8 +7,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
 
-import com.iem.kafka.dto.MessageDto;
-
 @Component
 public class KafkaProducer {
 
