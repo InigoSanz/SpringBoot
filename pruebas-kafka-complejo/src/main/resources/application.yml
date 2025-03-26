@@ -1,0 +1,10 @@
+spring:
+  kafka:
+    host: localhost:9095
+custom:
+  topics:
+    uno: topico1
+    dos: topico2
+  groups:
+    uno: group1
+    dos: group2

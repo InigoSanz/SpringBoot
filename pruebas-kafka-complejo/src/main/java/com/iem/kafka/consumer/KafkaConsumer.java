@@ -3,6 +3,8 @@ package com.iem.kafka.consumer;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import com.iem.kafka.dto.MessageDto;
+
 @Component
 public class KafkaConsumer {
 	
@@ -11,8 +13,8 @@ public class KafkaConsumer {
 			groupId = "${custom.groups.uno}",
 			containerFactory = "messageContainerFactory"
 			)
-	public void messageListener(String message) throws Exception {
-		System.out.println("Mensaje recibido: " + message);
+	public void messageListener(MessageDto message) {
+		System.out.println("Mensaje recibido: " + message.getMsg());
 //		throw new Exception("");
 	}
 	
