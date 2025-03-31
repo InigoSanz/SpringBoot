@@ -57,7 +57,7 @@ class ClasesIemMockApplicationTests {
         entrada.setEsMujer(true);
         ResponseEntity<PenaCarcelesResponse> response = controlador.calcularPenaCarceles(entrada);
         Assertions.assertTrue(response.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(400)));
-
+        
         entrada.setPenas(List.of());
         response = controlador.calcularPenaCarceles(entrada);
         Assertions.assertTrue(response.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(400)));
