@@ -13,8 +13,8 @@ import com.demo.arq.application.port.output.PeceraRepositoryOutputPort;
 import com.demo.arq.application.util.Constants;
 import com.demo.arq.application.util.Errors;
 import com.demo.arq.domain.exception.BusinessException;
+import com.demo.arq.domain.mapper.PeceraPatchMapper;
 import com.demo.arq.domain.model.Pecera;
-import com.demo.arq.domain.model.ValueObject;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +28,9 @@ public class PeceraService implements PeceraServiceInputPort {
 	
 	@Autowired
 	PeceraProducerOutputPort peceraProducer;
+	
+	@Autowired
+	PeceraPatchMapper peceraPatchMapper;
 
 	@Override
 	public Page<Pecera> obtenerPecera(@Valid Pageable pageable) throws BusinessException {
@@ -69,17 +72,7 @@ public class PeceraService implements PeceraServiceInputPort {
 			throw new BusinessException(Errors.PECERA_NOT_FOUND);
 		}
 		
-		if (input.getValue() != null) {
-			opt.get().setValue(input.getValue());
-		}
-		
-		if (input.getValueObject() != null) {
-			if (input.getValueObject().getValue() != null) {
-				opt.get().setValueObject(ValueObject.builder().value(input.getValueObject().getValue()).build());
-			} else {
-				opt.get().setValueObject(ValueObject.builder().build());
-			}
-		}
+		peceraPatchMapper.update(opt.get(), input);
 		
 		peceraRepository.modificarPecera(opt.get());
 		peceraProducer.eventoModificacionPecera(opt.get());		

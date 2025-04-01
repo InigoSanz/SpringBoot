@@ -18,7 +18,7 @@ import lombok.extern.jackson.Jacksonized;
 public class PeceraEntity {
 	@Id
 	private String id;
-	private String value;
+	private String valueZ;
 	private ValueObjectEntity valueObject;
 	private boolean eliminado;
 }

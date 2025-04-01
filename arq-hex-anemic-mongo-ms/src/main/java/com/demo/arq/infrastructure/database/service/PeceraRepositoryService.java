@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.demo.arq.application.port.output.PeceraRepositoryOutputPort;
 import com.demo.arq.domain.model.Pecera;
 import com.demo.arq.infrastructure.database.entity.PeceraEntity;
+import com.demo.arq.infrastructure.database.mapper.PeceraToPeceraEntityMapper;
 import com.demo.arq.infrastructure.database.repository.PeceraRepository;
 
 import jakarta.validation.Valid;
@@ -21,41 +22,57 @@ public class PeceraRepositoryService implements PeceraRepositoryOutputPort {
 	
 	@Autowired
 	PeceraRepository peceraRepository;
+	
+	@Autowired
+	PeceraToPeceraEntityMapper peceraToPeceraEntityMapper;
 
 	@Override
 	public Page<Pecera> obtenerPeceras(@Valid Pageable pageable) {
+		log.debug("obtenerPecera");
 		
-		return null;
+		Page<PeceraEntity> pageEntity = peceraRepository.findByEliminado(false, pageable);
+		
+		return peceraToPeceraEntityMapper.fromEntityToDomain(pageEntity);
 	}
 
 	@Override
 	public Optional<Pecera> obtenerPecera(@Valid String id) {
-
-		return Optional.empty();
+		log.debug("obtenerPecera");
+		
+		Optional<PeceraEntity> recursoEntity = peceraRepository.findByIdAndEliminado(id, false);
+		
+		return peceraToPeceraEntityMapper.fromEntityToDomain(recursoEntity);
 	}
 
 	@Override
 	public String crearPecera(@Valid Pecera input) {
 		log.debug("crearPecera");
 		
-		PeceraEntity entity = new PeceraEntity();
+		PeceraEntity entity = peceraToPeceraEntityMapper.fromDomainToEntity(input);
 		
 		entity.setId(null);
 		entity.setEliminado(false);
-		
-		//entity.setValue(input.getValue());
-		//entity.setValueObject(ValueObjectEntity.builder().value(input.getValueObject().getValue()).build());
 		
 		return peceraRepository.save(entity).getId();
 	}
 
 	@Override
 	public void modificarPecera(@Valid Pecera input) {
-		// Auto
+		log.debug("modificarPecera");
+		
+		PeceraEntity entity = peceraToPeceraEntityMapper.fromDomainToEntity(input);
+		
+		peceraRepository.save(entity);
 	}
 
 	@Override
 	public void eliminarPecera(@Valid String id) {
-		// Auto
+		log.debug("eliminarPecera");
+		
+		Optional<PeceraEntity> opt = peceraRepository.findByIdAndEliminado(id, false);
+		if (opt.isPresent()) {
+			opt.get().setEliminado(true);
+			peceraRepository.save(opt.get());
+		}
 	}
 }
