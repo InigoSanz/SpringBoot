@@ -1,0 +1,47 @@
+{"properties": [
+  {
+    "name": "custom.topic.pecera.posted",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.topic.pecera.posted'"
+  },
+  {
+    "name": "custom.topic.pecera.modified",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.topic.pecera.modified'"
+  },
+  {
+    "name": "custom.topic.pecera.deleted",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.topic.pecera.deleted'"
+  },
+  {
+    "name": "custom.topic.pecera.input-event",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.topic.pecera.input-event'"
+  },
+  {
+    "name": "spring.kafka.url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.kafka.url'"
+  },
+  {
+    "name": "spring.kafka.consumer.group-id-test",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.kafka.consumer.group-id-test'"
+  },
+  {
+    "name": "data.mongodb.host",
+    "type": "java.lang.String",
+    "description": "A description for 'data.mongodb.host'"
+  },
+  {
+    "name": "data.mongodb.port",
+    "type": "java.lang.String",
+    "description": "A description for 'data.mongodb.port'"
+  },
+  {
+    "name": "data.mongodb.database",
+    "type": "java.lang.String",
+    "description": "A description for 'data.mongodb.database'"
+  }
+]}
