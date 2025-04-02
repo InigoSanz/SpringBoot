@@ -1,5 +1,7 @@
 package com.iem.extra.application.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,24 @@ public class MemberService implements MemberServiceInputPort {
 		m.setId(id);
 
 		return m;
+	}
+
+	public Optional<Member> modificarMiembro(String memberId) {
+		
+		return memberRepositoryOutputPort.obtenerMiembro(memberId);	
+	}
+
+	public Optional<Member> obtenerMiembro(String memberId) {
+
+		return memberRepositoryOutputPort.obtenerMiembro(memberId);
+	}
+
+	public void modificarMiembro(Member member) throws Exception {
+		
+		Optional<Member> miembro = obtenerMiembro(member.getId());
+		if (miembro.isEmpty()) {
+			throw new Exception("Miembro no existe");
+		}
+		memberRepositoryOutputPort.modificarMiembro(member);
 	}
 }

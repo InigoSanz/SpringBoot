@@ -7,5 +7,5 @@ public interface ProjectServiceInputPort {
 
 	public Project crearProyecto(String nombre);
 	
-	public Member addMember(String proyectoId, String memberId);
+	public Member addMember(String proyectoId, String memberId) throws Exception;
 }
