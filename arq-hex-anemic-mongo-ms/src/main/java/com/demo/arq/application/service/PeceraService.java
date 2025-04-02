@@ -33,7 +33,7 @@ public class PeceraService implements PeceraServiceInputPort {
 	PeceraPatchMapper peceraPatchMapper;
 
 	@Override
-	public Page<Pecera> obtenerPecera(@Valid Pageable pageable) throws BusinessException {
+	public Page<Pecera> obtenerPeceras(@Valid Pageable pageable) throws BusinessException {
 		log.debug("obtenerPeceras");
 		
 		if (pageable.getPageSize() >= Constants.MAXIMUM_PAGINATION) {

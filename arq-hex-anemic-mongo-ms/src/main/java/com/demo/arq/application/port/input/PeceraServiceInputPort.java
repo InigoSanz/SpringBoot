@@ -12,7 +12,7 @@ import jakarta.validation.Valid;
 
 public interface PeceraServiceInputPort {
 	
-	public Page<Pecera> obtenerPecera(@Valid Pageable pageable) throws BusinessException;
+	public Page<Pecera> obtenerPeceras(@Valid Pageable pageable) throws BusinessException;
 		
 	public Optional<Pecera> obtenerPecera(@Valid String id);
 	
