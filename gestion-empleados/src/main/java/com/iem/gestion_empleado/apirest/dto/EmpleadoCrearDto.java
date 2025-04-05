@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmpleadoDto {
+public class EmpleadoCrearDto {
 	
-	private String id;
 	private String nombre;
 	private String correo;
 	private LocalDate fechaContratacion;
