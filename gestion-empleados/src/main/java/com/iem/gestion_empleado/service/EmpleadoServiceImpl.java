@@ -304,4 +304,16 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 		
 		return null;
 	}
+
+	@Override
+	public double obtenerSalarioDeEmpleado(String id) {
+		
+		Optional<EmpleadoEntity> empleadoOptional = empleadoRepository.findById(id);
+		
+		if (empleadoOptional.isPresent()) {
+			return empleadoOptional.get().getSalario();
+		}
+		
+		return 0.0;
+	}
 }

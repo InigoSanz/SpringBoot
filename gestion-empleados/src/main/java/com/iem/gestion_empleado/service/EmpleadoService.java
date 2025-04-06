@@ -34,4 +34,6 @@ public interface EmpleadoService {
 	public List<CursoDto> obtenerCursosDeEmpleado(String id);
 
 	public CursoDto obtenerCursoDeEmpleado(String id, String cursoId);
+
+	public double obtenerSalarioDeEmpleado(String id);
 }

@@ -163,7 +163,7 @@ public class EmpleadosController {
 	@GetMapping("/{id}/courses/{courseId}")
 	public ResponseEntity<CursoDto> obtenerCursoDeEmpleado(@PathVariable("id") String id,
 			@PathVariable("courseId") String cursoId) {
-		
+
 		CursoDto curso = empleadoService.obtenerCursoDeEmpleado(id, cursoId);
 
 		if (curso == null) {
@@ -171,5 +171,24 @@ public class EmpleadosController {
 		}
 
 		return ResponseEntity.ok(curso);
+	}
+
+	@GetMapping("/{id}/salary")
+	public ResponseEntity<Double> obtenerSalario(@PathVariable("id") String id) {
+
+		// Aquí me da problemas la clase primitiva, utilizamos Optional por probar, ya
+		// que la comprobación de si existe el empleado la haremos en el servicio
+		double salario = empleadoService.obtenerSalarioDeEmpleado(id);
+
+		if (salario == 0.0) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		return ResponseEntity.ok(salario);
+	}
+	
+	@GetMapping("/hiring-date")
+	public ResponseEntity<List<EmpleadoDto>> filtrarPorFechaContratacion() {
+		
 	}
 }
