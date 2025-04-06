@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.iem.gestion_empleado.apirest.dto.DepartamentoDto;
 import com.iem.gestion_empleado.apirest.dto.EmpleadoCrearDto;
 import com.iem.gestion_empleado.apirest.dto.EmpleadoDto;
 import com.iem.gestion_empleado.service.EmpleadoService;
@@ -74,5 +75,50 @@ public class EmpleadosController {
 		}
 		
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PostMapping("/{id}/departments/{depId}")
+	public ResponseEntity<Void> asignarDepartamento(@PathVariable("id") String id, @PathVariable("depId") String departamentoId) {
+		
+		boolean departamentoAsignado = empleadoService.asignarDepartamento(id, departamentoId);
+		
+		if (!departamentoAsignado) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@DeleteMapping("/{id}/departments/{depId}")
+	public ResponseEntity<Void> eliminarDepartamento(@PathVariable("id") String id, @PathVariable("depId") String departamentoId) {
+		
+		boolean departamentoEliminado = empleadoService.eliminarDepartamento(id, departamentoId);
+		
+		if (!departamentoEliminado) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/{id}/departments")
+	public ResponseEntity<List<DepartamentoDto>> obtenerDepartamentosDeEmpleado(@PathVariable("id") String id) {
+		
+		List<DepartamentoDto> departamentos = empleadoService.obtenerDepartamentosDeEmpleado(id);
+		
+		// Como hemos devuelto una lista vacía en el servicio, podemos quitar la comprobación anterior (ahora no devolvemos nunca null)
+		return ResponseEntity.ok(departamentos);
+	}
+	
+	@GetMapping("/{id}/departments/{depId}")
+	public ResponseEntity<DepartamentoDto> obtenerInformacionDeDepartamentoDeEmpleado(@PathVariable("id") String id, @PathVariable("depId") String departamentoId) {
+		
+		DepartamentoDto departamento = empleadoService.obtenerDepartamentoDeEmpleado(id, departamentoId);
+		
+		if (departamento == null) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		return ResponseEntity.ok(departamento);
 	}
 }

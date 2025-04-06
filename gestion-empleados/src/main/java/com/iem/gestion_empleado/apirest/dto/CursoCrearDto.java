@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CursoDto {
+public class CursoCrearDto {
 	
-	private String id;
 	private String nombre;
 	private LocalDate fechaInicio;
 	private LocalDate fechaFin;
