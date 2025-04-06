@@ -1,6 +1,7 @@
 package com.iem.gestion_empleado.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,48 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 		EmpleadoEntity guardar = empleadoRepository.save(entidad);
 		
 		return empleadoMapper.empleadoEntityToDto(guardar);
+	}
+
+	@Override
+	public EmpleadoDto obtenerEmpleadoPorId(String id) {
+		
+		Optional<EmpleadoEntity> empleado = empleadoRepository.findById(id);
+		
+		if (empleado.isPresent()) {
+			return empleadoMapper.empleadoEntityToDto(empleado.get());
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public EmpleadoDto actualizarEmpleado(String id, EmpleadoCrearDto empleadoDto) {
+		
+		Optional<EmpleadoEntity> empleadoOptional = empleadoRepository.findById(id);
+		
+		if (empleadoOptional.isPresent()) {
+			EmpleadoEntity empleadoEntidad = empleadoOptional.get();
+			
+			empleadoMapper.actualizarEntityDeDto(empleadoDto, empleadoEntidad);
+			
+			EmpleadoEntity empleadoGuardar = empleadoRepository.save(empleadoEntidad);
+			
+			return empleadoMapper.empleadoEntityToDto(empleadoGuardar);
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public boolean eliminarEmpleado(String id) {
+		
+		Optional<EmpleadoEntity> empleado = empleadoRepository.findById(id);
+		
+		if (empleado.isPresent()) {
+			empleadoRepository.deleteById(id);
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

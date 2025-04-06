@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import com.iem.gestion_empleado.apirest.dto.EmpleadoCrearDto;
 import com.iem.gestion_empleado.apirest.dto.EmpleadoDto;
@@ -20,4 +21,7 @@ public interface EmpleadoMapper {
 	public EmpleadoCrearDto empleadoCrearEntityToDto(EmpleadoEntity entity);
 	
 	public List<EmpleadoDto>  empleadoEntityListToDtoList(List<EmpleadoEntity> entities);
+	
+	@Mapping(target = "id", ignore = true)
+	public void actualizarEntityDeDto(EmpleadoCrearDto dto, @MappingTarget EmpleadoEntity entity);
 }
