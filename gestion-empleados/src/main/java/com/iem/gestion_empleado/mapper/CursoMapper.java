@@ -18,4 +18,6 @@ public interface CursoMapper {
 	public CursoDto cursoEntityToDto(CursoEntity cursoGuardar);
 
 	public List<CursoDto> cursoEntityListToDto(List<CursoEntity> listaCursos);
+
+	public List<CursoDto> cursoEntityListToDtoList(List<CursoEntity> cursos);
 }
