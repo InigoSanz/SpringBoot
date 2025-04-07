@@ -27,17 +27,20 @@ public class MemberService implements MemberServiceInputPort {
 
 		return m;
 	}
-
+	
+	@Override
 	public Optional<Member> modificarMiembro(String memberId) {
 		
 		return memberRepositoryOutputPort.obtenerMiembro(memberId);	
 	}
-
+	
+	@Override
 	public Optional<Member> obtenerMiembro(String memberId) {
 
 		return memberRepositoryOutputPort.obtenerMiembro(memberId);
 	}
-
+	
+	@Override
 	public void modificarMiembro(Member member) throws Exception {
 		
 		Optional<Member> miembro = obtenerMiembro(member.getId());

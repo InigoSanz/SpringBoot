@@ -187,8 +187,9 @@ public class EmpleadosController {
 		return ResponseEntity.ok(salario);
 	}
 	
-	@GetMapping("/hiring-date")
+/*	@GetMapping("/hiring-date")
 	public ResponseEntity<List<EmpleadoDto>> filtrarPorFechaContratacion() {
 		
 	}
+*/
 }
