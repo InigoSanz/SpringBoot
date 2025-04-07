@@ -13,4 +13,8 @@ public interface ParkingRepositoryOutputPort {
 	List<String> obtenerCoches(ObtenerCochesQuery query);
 
 	Optional<RegistroEntrada> obtenerRegistroEntrada(String id);
+
+	Optional<RegistroEntrada> obtenerRegistroEntradaPorMatricula(String matricula);
+
+	void actualizarRegistro(RegistroEntrada registroEntrada);
 }

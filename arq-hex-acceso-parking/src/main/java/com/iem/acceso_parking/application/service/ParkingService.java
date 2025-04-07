@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iem.acceso_parking.application.port.ContentManagerOutputPort;
+import com.iem.acceso_parking.application.port.ParkingProducerOutputPort;
 import com.iem.acceso_parking.application.port.ParkingRepositoryOutputPort;
 import com.iem.acceso_parking.application.port.ParkingServiceInputPort;
+import com.iem.acceso_parking.application.port.PoliceOutputPort;
 import com.iem.acceso_parking.domain.command.CrearRegistroEntradaCommand;
 import com.iem.acceso_parking.domain.command.PagarTicketCommand;
+import com.iem.acceso_parking.domain.command.ValidarSalidaCommand;
 import com.iem.acceso_parking.domain.model.RegistroEntrada;
 import com.iem.acceso_parking.domain.query.ObtenerCochesQuery;
 import com.iem.acceso_parking.domain.query.ObtenerCosteTicketQuery;
@@ -25,6 +28,12 @@ public class ParkingService implements ParkingServiceInputPort {
 
 	@Autowired
 	ParkingRepositoryOutputPort parkingRepository;
+
+	@Autowired
+	PoliceOutputPort police;
+	
+	@Autowired
+	ParkingProducerOutputPort parkingProducer;
 
 	@Override
 	public String crearRegistroEntrada(CrearRegistroEntradaCommand command) {
@@ -52,9 +61,9 @@ public class ParkingService implements ParkingServiceInputPort {
 		if (re.isEmpty()) {
 			throw new Exception("Error ticket");
 		}
-		
-		
 
+		re.get().setFechaPagado(LocalDateTime.now());
+		re.get().setPagado(true);
 	}
 
 	@Override
@@ -76,5 +85,29 @@ public class ParkingService implements ParkingServiceInputPort {
 		float result = ((milisDentroParking / 1000) / 60) * tarifaMinuto;
 
 		return result;
+	}
+
+	@Override
+	public boolean validarSalida(ValidarSalidaCommand command) throws Exception {
+
+		Optional<RegistroEntrada> re = parkingRepository.obtenerRegistroEntradaPorMatricula(command.getMatricula());
+
+		if (re.isEmpty()) {
+			throw new Exception("Error ticket");
+		}
+
+		boolean sonIguales = contentManager.comparaImagenes(re.get().getIdImagenContentManager(),
+				command.getImagenNueva());
+
+		if (!sonIguales) {
+			police.call();
+		} else if (re.get().isPagado()) {
+			re.get().setFechaSalida(LocalDateTime.now());
+			parkingRepository.actualizarRegistro(re.get());
+			parkingProducer.send(re.get());
+			return true;
+		}
+
+		return false;
 	}
 }
