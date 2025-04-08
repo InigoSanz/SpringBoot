@@ -21,8 +21,12 @@ import com.iem.acceso_parking.domain.command.PagarTicketCommand;
 import com.iem.acceso_parking.domain.query.ObtenerCochesQuery;
 import com.iem.acceso_parking.domain.query.ObtenerCosteTicketQuery;
 import com.iem.acceso_parking.infrastructure.apirest.dto.PostRegistroDto;
-import com.iem.acceso_parking.infrastructure.apirest.mapper.ParkingMapper;
+import com.iem.acceso_parking.infrastructure.apirest.dto.ValidarSalidaDto;
+import com.iem.acceso_parking.infrastructure.apirest.mapper.ParkingDtoMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/parkings")
 @SuppressWarnings("rawtypes")
@@ -32,7 +36,7 @@ public class ParkingController {
 	ParkingServiceInputPort service;
 	
 	@Autowired
-	ParkingMapper parkingMapper;
+	ParkingDtoMapper parkingMapper;
 	
 	@PostMapping
 	public ResponseEntity crearRegistroEntrada(@RequestBody PostRegistroDto dto) {
@@ -90,7 +94,18 @@ public class ParkingController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	public ResponseEntity validarSalida() {
+	@PostMapping("/validaciones")
+	public ResponseEntity validarSalida(@RequestBody ValidarSalidaDto dto) {
+		log.info("validarSalida");
 		
+		boolean salida = false;
+		
+		try {
+			salida = service.validarSalida(parkingMapper.map(dto));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return ResponseEntity.ok(salida);
 	}
 }
